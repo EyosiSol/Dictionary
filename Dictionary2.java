@@ -52,7 +52,6 @@ class Dictionary extends JFrame implements ActionListener {
         model.addElement(new Elements("almighty"));
         model.addElement(new Elements("apostacy"));
         model.addElement(new Elements("asperity"));
-        //model.addElement(new Elements("assignee "));
         model.addElement(new Elements("arsenic"));
         model.addElement(new Elements("abase"));
         model.addElement(new Elements("ache"));
@@ -66,6 +65,19 @@ class Dictionary extends JFrame implements ActionListener {
         model.addElement(new Elements("bulldog"));
         model.addElement(new Elements("bum"));
         model.addElement(new Elements("beggar"));
+        model.addElement(new Elements("back"));
+        model.addElement(new Elements("calve"));
+        model.addElement(new Elements("camp"));
+        model.addElement(new Elements("canon"));
+        model.addElement(new Elements("canton"));
+        model.addElement(new Elements("certify"));
+        model.addElement(new Elements("char"));
+        model.addElement(new Elements("chisel"));
+        model.addElement(new Elements("civilly"));
+        model.addElement(new Elements("claw"));
+        model.addElement(new Elements("conductor"));
+
+
 
 
 
@@ -93,45 +105,26 @@ class Dictionary extends JFrame implements ActionListener {
             }
         });
 
-        list.addKeyListener(new KeyListener() {
+        list.addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void valueChanged(ListSelectionEvent e) {
+                String val = String.valueOf(list.getSelectedValue());
+                words wo = new words();
+                HashMap<String,String> newHashMap = new HashMap<>();
+                newHashMap =wo.addToDictionary();
+                for(Map.Entry<String,String> word : newHashMap.entrySet()){
+                    String key = word.getKey();
+                    String value = word.getValue();
+                    if(key.equals(val.toLowerCase().trim())){
+                        WORDS2.setText(key + " Means: "+ value);
 
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    Buttons.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            words wo = new words();
-                            HashMap<String,String> newHashMap = new HashMap<>();
-                            newHashMap =wo.addToDictionary();
-                            for(Map.Entry<String,String> word : newHashMap.entrySet()){
-                                String key = word.getKey();
-                                String value = word.getValue();
-                                if(key.equals(Searchbar.getText().toLowerCase().trim())){
-                                    WORDS2.setText(key + " Means: "+ value);
-                                    Searchbar.setText(key);
-
-                                }else if(value.equals(Searchbar.getText().toLowerCase().trim())){
-                                    WORDS2.setText(key+" Means: "+ key);
-                                    Searchbar.setText(key);
-                                }
-                            }
-                        }
-                    });
+                    }else if(value.equals(val.toLowerCase().trim())){
+                        WORDS2.setText(key+" Means: "+ key);
+                    }
                 }
 
             }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
         });
-
 
         ImageIcon ImageIC = new ImageIcon("icons8-dictionary-48.png");
         ImageIcon ImageBG = new ImageIcon("BG.png");
@@ -164,7 +157,6 @@ class Dictionary extends JFrame implements ActionListener {
                 }
             }
         });
-
         Searchbar.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -216,52 +208,22 @@ class Dictionary extends JFrame implements ActionListener {
 
         Translate = new JTextField("ትርጉም፦");
         Translate.setFont(new Font("Nyala",BOLD,30));
-        Translate.setBounds(470,123,384,50);
+        Translate.setBounds(469,123,386,52);
+        Translate.setBackground(new Color(200,200,200));
         Translate.setEditable(false);
 
         WORDS = new JTextArea();
         WORDS.setBounds(35,170,380,373);
         WORDS.setEditable(false);
-        //WORDS.setBackground(new Color(125,70,77,100));
+        WORDS.setBackground(new Color(125,70,77));
 
-        WORDS2 = new JTextArea("MEANING");
+        WORDS2 = new JTextArea("ማለት፦ ");
         WORDS2.setFont(new Font("Power Geez Unicode1",BOLD,20));
-        WORDS2.setBounds(467,170,390,373);
+        WORDS2.setBounds(470,172,384,373);
+        WORDS2.setBackground(new Color(220,220,211));
         WORDS2.setEditable(false);
-        //WORDS2.setBackground(new Color(125,70,77,100));
-
-        Buttons = new JButton("Search");
-        Buttons.setBounds(310,123,110,46);
-        Buttons.setFont(new Font("Arial",BOLD,20));
-        //Buttons.setVisible(true);
-        //Buttons.setFocusable(false);
-        //Buttons.setBackground(new Color(125,70,77,100));
-        Buttons.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                words wo = new words();
-                HashMap<String,String> newHashMap = new HashMap<>();
-                newHashMap =wo.addToDictionary();
-                for(Map.Entry<String,String> word : newHashMap.entrySet()){
-                    String key = word.getKey();
-                    String value = word.getValue();
-                    if(key.equals(Searchbar.getText().toLowerCase().trim())){
-                        WORDS2.setText(key + " Means: "+ value);
-                        Searchbar.setText("");
-                    }else if(value.equals(Searchbar.getText().toLowerCase().trim())){
-                        WORDS2.setText(key+" Means: "+ key);
-                        Searchbar.setText("");
-                    }
-                }
-                Searchbar.setText("");
-            }
-        });
-        // Buttons.
 
 
-
-        //SB = new JScrollBar();
-        //SB.setBounds(389,170,30,373);
 
         SP = new JScrollPane(list);
         SP.setBounds(35,170,380,373);
@@ -279,7 +241,7 @@ class Dictionary extends JFrame implements ActionListener {
         Design.setResizable(false);
         Design.setVisible(true);
 
-        Label.add(Buttons);
+       // Label.add(Buttons);
         Label.add(Searchbar);
         Label.add(SP);
         Label.add(WORDS);

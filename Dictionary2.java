@@ -137,7 +137,7 @@ class Dictionary extends JFrame implements ActionListener {
         Searchbar.setFont(new Font("Power Geez Unicode1", BOLD,20));
         Searchbar.setForeground(Color.GRAY);
         Searchbar.setEditable(true);
-        Searchbar.setBounds(35,123,280,47);
+        Searchbar.setBounds(35,123,380,47);
         Searchbar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -192,7 +192,7 @@ class Dictionary extends JFrame implements ActionListener {
                 }
                 WORDS2.setText("Not Found!");
                 list.clearSelection();
-                Searchbar.setText("");
+
             }
 
             @Override

@@ -52,38 +52,47 @@ class Dictionary extends JFrame implements ActionListener {
         model.addElement(new Elements("almighty"));
         model.addElement(new Elements("apostacy"));
         model.addElement(new Elements("asperity"));
-        model.addElement(new Elements("assignee "));
+        //model.addElement(new Elements("assignee "));
         model.addElement(new Elements("arsenic"));
         model.addElement(new Elements("abase"));
         model.addElement(new Elements("ache"));
+        model.addElement(new Elements("advisory"));
+        model.addElement(new Elements("band dog"));
+        model.addElement(new Elements("bile"));
+        model.addElement(new Elements("bogey"));
+        model.addElement(new Elements("brain wash"));
+        model.addElement(new Elements("broken hearted"));
+        model.addElement(new Elements("bull headed"));
+        model.addElement(new Elements("bulldog"));
+        model.addElement(new Elements("bum"));
+        model.addElement(new Elements("beggar"));
 
-        /**list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                Elements El = list.getSelectedValue();
-                Searchbar.setText(String.valueOf(El));
-            }
-        });**/
+
+
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                words wo = new words();
-                HashMap<String,String> newHashMap = new HashMap<>();
-                newHashMap =wo.addToDictionary();
-                for(Map.Entry<String,String> word : newHashMap.entrySet()){
-                    String key = word.getKey();
-                    String value = word.getValue();
-                    if(key.equals(Searchbar.getText().toLowerCase().trim())){
-                        WORDS2.setText(key + " Means: "+ value);
-                        Searchbar.setText(key);
+                if (e.getClickCount() == 1) {
+                    Searchbar.setText(String.valueOf(list.getSelectedValue()));
+                    words wo = new words();
+                    HashMap<String, String> newHashMap = new HashMap<>();
+                    newHashMap = wo.addToDictionary();
+                    for (Map.Entry<String, String> word : newHashMap.entrySet()) {
+                        String key = word.getKey();
+                        String value = word.getValue();
+                        if (key.equals(Searchbar.getText().toLowerCase().trim())) {
+                            WORDS2.setText(key + " Means: " + value);
+                            Searchbar.setText(key);
 
-                    }else if(value.equals(Searchbar.getText().toLowerCase().trim())){
-                        WORDS2.setText(key+" Means: "+ key);
-                        Searchbar.setText(key);
+                        } else if (value.equals(Searchbar.getText().toLowerCase().trim())) {
+                            WORDS2.setText(key + " Means: " + key);
+                            Searchbar.setText(key);
+                        }
                     }
                 }
             }
         });
+
         list.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -184,13 +193,14 @@ class Dictionary extends JFrame implements ActionListener {
                     s = s.toLowerCase();
                     if(s.startsWith(str)){
                         list.setSelectedIndex(i);
-                        //JScrollBar sb = scroll.getVerticalScrollBar();
-                        //sb.setValue(i*20);
+                        JScrollBar sb = SP.getVerticalScrollBar();
+                        sb.setValue(i*20);
                         return;
                     }
                 }
                 WORDS2.setText("Not Found!");
                 list.clearSelection();
+                Searchbar.setText("");
             }
 
             @Override
@@ -243,6 +253,7 @@ class Dictionary extends JFrame implements ActionListener {
                         Searchbar.setText("");
                     }
                 }
+                Searchbar.setText("");
             }
         });
         // Buttons.

@@ -5,9 +5,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import static java.awt.Font.BOLD;
-class Dictionary extends JFrame implements ActionListener {
-    
+
+class Dictionary extends JFrame implements ActionListener{
     JFrame Design;
     JTextField Searchbar;
     JLabel Label;
@@ -27,7 +26,7 @@ class Dictionary extends JFrame implements ActionListener {
     }
     Dictionary(){
         list.setModel(model);
-        list.setFont(new Font("Nyala", BOLD,25));
+        list.setFont(new Font("Nyala", Font.BOLD,25));
         model.addElement(new Elements("acute"));
         model.addElement(new Elements("almighty"));
         model.addElement(new Elements("apostasy"));
@@ -422,16 +421,15 @@ class Dictionary extends JFrame implements ActionListener {
         model.addElement(new Elements("zygote"));
         model.addElement(new Elements("zymurgy"));
         model.addElement(new Elements("zinc"));
-        
 
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     String val = String.valueOf(list.getSelectedValue());
-                    words wo = new words();
-                    HashMap<String, String> newHashMap;
-                    newHashMap = wo.addToDictionary();
+                    words wo = new words(); //object from the words class
+                    HashMap<String, String> newHashMap; //a hashmap variable
+                    newHashMap = wo.addToDictionary(); //
                     for (Map.Entry<String, String> word : newHashMap.entrySet()) {
                         String key = word.getKey();
                         String value = word.getValue();
@@ -446,10 +444,10 @@ class Dictionary extends JFrame implements ActionListener {
         list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                String val = String.valueOf(list.getSelectedValue());
-                words wo = new words();
-                HashMap<String, String> newHashMap;
-                newHashMap = wo.addToDictionary();
+                String val = String.valueOf(list.getSelectedValue());//store the selected word (arsenic)
+                words wo = new words(); //we created an object using the "words" hashmap class
+                HashMap<String, String> newHashMap;// an empty hashmap variable
+                newHashMap = wo.addToDictionary(); // assigning the addtodictionary method of the words class in the empty hashmap
                 for (Map.Entry<String, String> word : newHashMap.entrySet()) {
                     String key = word.getKey();
                     String value = word.getValue();
@@ -461,13 +459,13 @@ class Dictionary extends JFrame implements ActionListener {
         });
         ImageIcon ImageIC = new ImageIcon("icons8-dictionary-48.png");
         ImageIcon ImageBG = new ImageIcon("BGnew.png");
+
         Label = new JLabel(ImageBG);
-        Label.setSize(900,500);
-        Label.setBackground(new Color(125,70,77,0));
+        Label.setSize(900,540);
         Label.setVisible(true);
 
         Searchbar = new JTextField("Search");
-        Searchbar.setFont(new Font("Power Geez Unicode1", BOLD,20));
+        Searchbar.setFont(new Font("Power Geez Unicode1", Font.BOLD,20));
         Searchbar.setForeground(Color.BLACK);
         Searchbar.setBackground(new Color(175,175,175));
         Searchbar.setEditable(true);
@@ -476,17 +474,14 @@ class Dictionary extends JFrame implements ActionListener {
         Searchbar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                words wo = new words();
-                HashMap<String, String> newHashMap;
-                newHashMap = wo.addToDictionary();
-                for (Map.Entry<String, String> word : newHashMap.entrySet()) {
+                words wo = new words(); //object wo is being created from the class words
+                HashMap<String, String> newHashMap; // creating a hashmap variable
+                newHashMap = wo.addToDictionary(); //assigning the addtoDictionary method from class words
+                for(Map.Entry<String, String> word : newHashMap.entrySet()) {
                     String key = word.getKey();
                     String value = word.getValue();
                     if (key.equals(Searchbar.getText().toLowerCase().trim())) {
                         WORDS2.setText(">>" + key + " Means: " + value);
-                        Searchbar.setText("");
-                    } else if (value.equals(Searchbar.getText().toLowerCase().trim())) {
-                        WORDS2.setText(">>" + key + " Means: " + key);
                         Searchbar.setText("");
                     }
                 }
@@ -504,15 +499,14 @@ class Dictionary extends JFrame implements ActionListener {
                 }
             }
         });
-        Searchbar.addKeyListener(new KeyListener() {
+        Searchbar.addKeyListener(new KeyListener() { //the search system
             @Override
             public void keyTyped(KeyEvent e) {
-                String str = Searchbar.getText().trim();
+                String str = Searchbar.getText().toLowerCase().trim();
                 str += e.getKeyChar();
-                str = str.toLowerCase().trim();
                 String s;
                 for(int i=0; i< model.size(); i++){
-                    s = String.valueOf(model.getElementAt(i));
+                    s = String.valueOf(model.getElementAt(i)); //it will take the ith element of the Jlist and store to i in string form
                     s = s.toLowerCase();
                     if(s.startsWith(str)){
                         list.setSelectedIndex(i);
@@ -530,7 +524,7 @@ class Dictionary extends JFrame implements ActionListener {
             public void keyReleased(KeyEvent e) { }
         });
         WORDS2 = new JTextArea(">>.......");
-        WORDS2.setFont(new Font("Power Geez Unicode1",BOLD,18));
+        WORDS2.setFont(new Font("Power Geez Unicode1",Font.BOLD,18));
         WORDS2.setBorder(new LineBorder(Color.LIGHT_GRAY));
         WORDS2.setBounds(498,168,330,300);
         WORDS2.setBackground(new Color(170,170,170));
@@ -545,7 +539,7 @@ class Dictionary extends JFrame implements ActionListener {
         Design = new JFrame("English to Amharic Dictionary(Sample) ");
         Design.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Design.setSize(900,545);
-        Design.setIconImage(ImageIC.getImage());
+        Design.setIconImage(ImageIC.getImage()); //setting the ICON OF THE GUI
         Design.setLocationRelativeTo(null);
         Design.setResizable(false);
         Design.setVisible(true);
@@ -553,6 +547,8 @@ class Dictionary extends JFrame implements ActionListener {
         Label.add(Searchbar);
         Label.add(SP);
         Label.add(WORDS2);
+
+
         Design.add(Label);
     }
     @Override
@@ -561,12 +557,10 @@ class Dictionary extends JFrame implements ActionListener {
 }
 public class Main {
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
             try{
-                Dictionary Dic = new Dictionary();
+                Dictionary Diction = new Dictionary();
             } catch (Exception e){
                 e.printStackTrace();
             }
-        });
     }
 }
